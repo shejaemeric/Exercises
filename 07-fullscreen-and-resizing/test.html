@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<Html>
+    <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>stock management website</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </Head>
+    <body>
+<div class="container  max-h-screen bg-white bg-center bg-cover ">
+    <nav class="flex bg-blue-950 py-4">
+      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <div class="flex flex-shrink-0 absolute left-0">
+    <img src="images/Black and White Rectangle Fashion Logo (1).png" alt="logo" class="w-1/2 h-auto">
+    <h1 class="py-2 text-white text-2xl font-semibold ml-2 mt-2">inventory</h1>
+  </div>
+  <div class="flex-grow flex justify-center">
+
+        <a href="index.html" class="no-underline text-white px-2">Home</a></li>
+        <div class="dropdown">
+        <a href="inventory.html" onclick="ToggleDropdown()" class ="no-underline text-white px-2">Inventory</a>
+    <div id="myDropdown" class="no-underline text-blue-800 display:none box-shadow= bg-gray-500 ">
+
+    </div>
+    </div>
+        <a href="sales.html"class="no-underline text-white px-2">Sales</a></li>
+        <a href="purchase.html"class="no-underline text-white px-2">Purchases</a></li>
+        <a href="reports.html"class="no-underline text-white px-2">Reports</a></li>
+     </div>
+       <div class="flex-shrink-0 absolute right-0">
+        <li class="list-none inline-block px-5"><a href="Signup.html"class="hover:bg-cyan-600 no-underline text-white  px-5 py-2 border border-transparent  rounded-md font-medium"><i class="fa-solid fa-user"></i>User</a></li>
+
+
+  </div>
+  </div>
+</nav>
+
+        <div class="flex-col">
+            <div class="min-h-52 w-96 p-6 shadow-lg bg-black rounded-md mt-10 mb-12">
+                <h1 class= "flex justify-center py-2 px-2 text-white text-2xl font-semibold ml-2 mt-2">Create Account </h1>
+                <div class="flex justify-center">
+                 <h1 class="text-white flex justify-center mr-2">Already registered?</h1>
+                <div class="text-white font-semibold">
+                    <a href="Login.html">Login</a>
+                </div>
+            </div>
+                <hr class="mt-3">
+                <div class="mt-3">
+                    <label for="Name" class="block-text-base mb-2 text-white">Name</label>
+                    <input type="text" id="name" class="border w-full text-base px-2 py-1  focus:border-gray-600" placeholder="Enter name"/>
+                </div>
+                <div class="mt-3">
+                    <label for="Username" class="block-text-base mb-2 text-white">Username</label>
+                    <input type="text" id="username" class="border w-full text-base px-2 py-1  focus:border-gray-600" placeholder="Enter Username"/>
+                </div>
+                <div class="mt-3">
+                    <label for="email" class="block-text-base mb-2 text-white">Email</label>
+                    <input type="email" id="email" class="border w-full text-base px-2 py-1  focus:border-gray-600" placeholder="Enter Email"/>
+                </div>
+
+                <div class="mt-3">
+                    <label for="Password" class="block-text-base mb-2 text-white">Password</label>
+                    <input type="text" id="password" class="border w-full text-base px-2 py-1 focus:border-gray-600" placeholder="Enter Password"/>
+                </div>
+                <div class="mt-3">
+                    <label for="Password" class="block-text-base mb-2 text-white">Password Verification</label>
+                    <input type="text" id="password" class="border w-full text-base px-2 py-1 focus:border-gray-600" placeholder="RE-Enter Password"/>
+                </div>
+                <div class="mt-3 flex justify-between items-center">
+                <div class="text-white" >
+                    <input type="checkbox">
+                    <label>Remember Me</label>
+                </div>
+                <div class="text-white font-semibold">
+                    <a href="#">Forgot Password</a>
+                </div>
+            </div>
+            <div class="mt-5 flex justify-center">
+                <button type="submit" class="border-2 border-black-70 bg-white text-black py-1 px-10 rounded-md">Sign Up</button>
+            </div>
+        </div>
+        <div class=" mt-24 flex bg-purple-950 items-start">
+            <h2>MURAHO</h2>
+        </div>
+        </div>
+
+    </div>
+
+    </body>
+
+</html>
