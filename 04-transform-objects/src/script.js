@@ -1,59 +1,136 @@
 import * as THREE from "three";
 import { degToRad } from "three/src/math/MathUtils";
+import gsap from "gsap";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-// create a scene
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
+// what is a scene and what it does
 const scene = new THREE.Scene();
 
-// create a mesh
-const BoxGeometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-const mesh = new THREE.Mesh(BoxGeometry, material);
-scene.add(mesh);
+// what are diff types of object and what is a boxMesh
 
-// mesh positioning
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1, 7, 7, 7);
+const sphereGeometry = new THREE.SphereGeometry(0.8, 7, 7);
+const material = new THREE.MeshBasicMaterial({
+  color: 0x00ff00,
+  wireframe: true,
+});
+const boxMesh = new THREE.Mesh(boxGeometry, material);
+const sphereMesh = new THREE.Mesh(sphereGeometry, material);
+scene.add(boxMesh);
+scene.add(sphereMesh);
 
-// mesh.position.x = 0.7;
-// mesh.position.y = -0.2;
-// mesh.position.z = -1;
+// playing with transformations
 
-mesh.position.set(1.7, 0, -1);
+boxMesh.position.x = -1;
+boxMesh.position.y = 0;
+boxMesh.position.z = 0;
 
-// scale
-// mesh.scale.x = 1;
-// mesh.scale.y = 2;
-// mesh.scale.z = 0.1;
-mesh.scale.set(1, 1.3, 1);
+sphereMesh.position.x = 1;
+sphereMesh.position.y = 0;
+sphereMesh.position.z = 0;
+// boxMesh.position.set(1, 1, 1);
 
-//rotation
+boxMesh.scale.x = 1;
+boxMesh.scale.y = 1;
+boxMesh.scale.z = 1;
 
-// mesh.rotation.reorder("ZXY");
-// mesh.rotation.x = degToRad(210);
-// mesh.rotation.y = degToRad(450);
-// mesh.rotation.z = degToRad(90);
+sphereMesh.scale.x = 1;
+sphereMesh.scale.y = 1;
+sphereMesh.scale.z = 1;
 
-mesh.rotation.reorder("ZXY");
-mesh.rotation.set(degToRad(210), degToRad(450), degToRad(90));
+// boxMesh.scale.set(5, 2, 3);
+// boxMesh.reorder("YZX");
+boxMesh.rotation.x = Math.PI * 0;
+boxMesh.rotation.y = Math.PI * 0.25;
+boxMesh.rotation.z = Math.PI * 0;
 
-// axesHelper
-const axesHelper = new THREE.AxesHelper();
-scene.add(axesHelper);
+//boxMesh.position.normalize();
+console.log(boxMesh.position.length());
 
-// create a camera
-const sizes = {
-  height: 820,
-  width: 1440,
-};
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 2;
-camera.position.y = 0.2;
-camera.position.x = 0.5;
-scene.add(camera);
-camera.lookAt(mesh.position);
+// axes helper what is it and what it is used for
 
-// create renderer
+// const axesHelper = new THREE.AxesHelper();
+// scene.add(axesHelper);
+
+// what is a camera a fov and aspect ratio
+
 const canvas = document.querySelector(".webgl");
+
+const camera = new THREE.PerspectiveCamera(
+  75,
+  sizes.width / sizes.height,
+  1,
+  100
+);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.update();
+
+// const camera = new THREE.PerspectiveCamera(1, -1, 1, -1, 1, 100);
+camera.position.z = 2.5;
+camera.position.y = 0.3;
+
+console.log(boxMesh.position.distanceTo(camera.position));
+
 const renderer = new THREE.WebGLRenderer({
   canvas,
 });
+
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
+
+// handle resizing
+
+window.addEventListener("resize", () => {
+  // update camera
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // update renderer
+  renderer.setSize(sizes.width, sizes.height);
+
+  //handle pixel Ration
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// handle fullscreen
+
+window.addEventListener("dblclick", () => {
+  const fullscreenElement =
+    document.fullscreenElement || document.webkitFullscreen;
+
+  if (!fullscreenElement) {
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    } else if (canvas.requestWebkitFullscreen) {
+      canvas.requestWebkitFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.exitWebkitFullscreen) {
+      document.exitWebkitFullscreen();
+    }
+  }
+});
+
+// amimations
+
+const clock = new THREE.Clock();
+
+// gsap.to(boxMesh.rotation, { duration: 5, delay: 1, y: 2 });
+
+function tick() {
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(tick);
+}
+tick();
